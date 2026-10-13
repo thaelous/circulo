@@ -114,7 +114,7 @@ export default function App() {
         }, 4200);
 
       // Conexión directa a Google Gemini desde el navegador
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const apiKey = "AQ.AbBRN6KjUdc5sCFDC4vUPP4dlC8EKV-Vib8jTn__3ZlIc7TaYA";
 
 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
   method: "POST",
