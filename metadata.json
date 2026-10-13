@@ -1,0 +1,6 @@
+{
+  "name": "Rueda de Liderazgo - Reporte Ejecutivo",
+  "description": "Análisis visual de Rueda Laboral de Liderazgo y generación de reporte ejecutivo en cuartilla con Liderazgo Situacional (SLII).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

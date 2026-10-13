@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #0f172a;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Print Rules strictly enforcing 1 vertical Letter Page */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #cuartilla-print-area,
+  #cuartilla-print-area * {
+    visibility: visible;
+  }
+
+  #cuartilla-print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
