@@ -133,12 +133,6 @@ export default function App() {
 
     const rawText = aiResponse.text;
         
-if (!response.ok) {
-  throw new Error("Error al conectar con la API de Gemini");
-}
-
-const data = await response.json();
-const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
         clearTimeout(stepTimer1);
         clearTimeout(stepTimer2);
