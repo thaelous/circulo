@@ -113,31 +113,26 @@ export default function App() {
           if (!isRetrying) setAnalysisStep("Estructurando acciones bajo modelo de Liderazgo Situacional (SLII)...");
         }, 4200);
 
-      // Conexión directa a Google Gemini desde el navegador
-const apiKey = "AQ.AbBRN6KjUdc5sCFDC4vUPP4dlC8EKV-Vib8jTn__3ZlIc7TaYA";
+    // Inicialización oficial y limpia con el SDK de Google
+    const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6KjUdc5sCFDC4vUPP4dlC8EKV-Vib8jTn__3ZlIc7TaYA" });
 
-const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    contents: [
-      {
-        parts: [
-          {
-            text: "Actúa como experto en desarrollo organizacional y facilitador de liderazgo. Analiza esta Rueda Laboral de Liderazgo y genera estrictamente el reporte ejecutivo de una cuartilla basándote en los trazos, calificaciones y notas manuscritas de Puntos Palanca (P.P.) y Puntos Impacto (P.I.)."
-          },
-          {
-            inline_data: {
-              mime_type: mimeType || "image/jpeg",
-              data: base64Image.includes(",") ? base64Image.split(",")[1] : base64Image
-            }
+    const aiResponse = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: [
+        {
+          inlineData: {
+            mimeType: mimeType || "image/jpeg",
+            data: base64Image.includes(",") ? base64Image.split(",")[1] : base64Image
           }
-        ]
-      }
-    ]
-  })
-});
+        },
+        {
+          text: "Actúa como experto en desarrollo organizacional y facilitador de liderazgo. Analiza esta Rueda Laboral de Liderazgo y genera estrictamente el reporte ejecutivo de una cuartilla basándote en los trazos, calificaciones y notas manuscritas de Puntos Palanca (P.P.) y Puntos Impacto (P.I.)."
+        }
+      ]
+    });
 
+    const rawText = aiResponse.text;
+        
 if (!response.ok) {
   throw new Error("Error al conectar con la API de Gemini");
 }
