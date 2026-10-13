@@ -114,25 +114,25 @@ export default function App() {
           if (!isRetrying) setAnalysisStep("Estructurando acciones bajo modelo de Liderazgo Situacional (SLII)...");
         }, 4200);
 
-    // Inicialización oficial y limpia con el SDK de Google
-    const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6KjUdc5sCFDC4vUPP4dlC8EKV-Vib8jTn__3ZlIc7TaYA" });
+    // Inicialización con el SDK oficial que procesa tu clave AQ...
+const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6KjUdc5sCFDC4vUPP4dlC8EKV-Vib8jTn__3ZlIc7TaYA" });
 
-    const aiResponse = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: [
-        {
-          inlineData: {
-            mimeType: mimeType || "image/jpeg",
-            data: base64Image.includes(",") ? base64Image.split(",")[1] : base64Image
-          }
-        },
-        {
-          text: "Actúa como experto en desarrollo organizacional y facilitador de liderazgo. Analiza esta Rueda Laboral de Liderazgo y genera estrictamente el reporte ejecutivo de una cuartilla basándote en los trazos, calificaciones y notas manuscritas de Puntos Palanca (P.P.) y Puntos Impacto (P.I.)."
-        }
-      ]
-    });
+const aiResponse = await ai.models.generateContent({
+  model: 'gemini-2.5-flash',
+  contents: [
+    {
+      inlineData: {
+        mimeType: mimeType || "image/jpeg",
+        data: base64Image.includes(",") ? base64Image.split(",")[1] : base64Image
+      }
+    },
+    {
+      text: "Actúa como experto en desarrollo organizacional y facilitador de liderazgo. Analiza esta Rueda Laboral de Liderazgo y genera estrictamente el reporte ejecutivo de una cuartilla basándote en los trazos, calificaciones y notas manuscritas de Puntos Palanca (P.P.) y Puntos Impacto (P.I.)."
+    }
+  ]
+});
 
-    const rawText = aiResponse.text;
+const rawText = aiResponse.text;
         
 
         clearTimeout(stepTimer1);
