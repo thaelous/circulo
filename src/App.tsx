@@ -113,15 +113,37 @@ export default function App() {
           if (!isRetrying) setAnalysisStep("Estructurando acciones bajo modelo de Liderazgo Situacional (SLII)...");
         }, 4200);
 
-        const response = await fetch("/api/analyze-wheel", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            imageBase64: base64Image,
-            mimeType,
-            notes: facilitatorNotes,
-          }),
-        });
+      // Conexión directa a Google Gemini desde el navegador
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    contents: [
+      {
+        parts: [
+          {
+            text: "Actúa como experto en desarrollo organizacional y facilitador de liderazgo. Analiza esta Rueda Laboral de Liderazgo y genera estrictamente el reporte ejecutivo de una cuartilla basándote en los trazos, calificaciones y notas manuscritas de Puntos Palanca (P.P.) y Puntos Impacto (P.I.)."
+          },
+          {
+            inline_data: {
+              mime_type: mimeType || "image/jpeg",
+              data: base64Image.includes(",") ? base64Image.split(",")[1] : base64Image
+            }
+          }
+        ]
+      }
+    ]
+  })
+});
+
+if (!response.ok) {
+  throw new Error("Error al conectar con la API de Gemini");
+}
+
+const data = await response.json();
+const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
         clearTimeout(stepTimer1);
         clearTimeout(stepTimer2);
